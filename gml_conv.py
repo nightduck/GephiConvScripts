@@ -5,41 +5,29 @@ Created on Sun Aug 28 18:00:41 2016
 @author: nightduck
 """
 
-# adjList = [(num,[num,num,...]), (num, [num, num,...]),...]
-
-#User notes
-print "About this program:"
-print "This script takes a list of number pairs corresponding to edges and outputs"
-print "a gml file. The list doesn't have to be sorted, but it is recommended that"
-print "unique node numbers are fairly consecutive. IE (1,2,4,5,6,9,10), and not"
-print "(1,56,356,824). If spare time is given, try rewriting the script to use"
-print "dictionaries for adjList. Also, the script doesn't acknowledge hypens in"
-print "filenames."
+# adjList = [num : [num,num,...]), num : [num, num,...]),...]
+# For node pairs that are of a form other than numbers, edit line 20
 
 ##Input file here
 filename = raw_input("Input file: ")
 f = open(filename, 'r')
 
-
-adjList = []
+#Adjacency list
+adjList = {}
 
 for line in f:
-	nums = [int(s) for s in line.split()]
-	
-	#Try to store each number in a matching index, so expand adjList so that index exists
-	while(nums[0] > len(adjList)-1):
-		adjList.append(0)
-	while(nums[1] > len(adjList)-1):
-		adjList.append(0)
+	#Extract each number in line to be in a list. This list will only have 2 numbers
+	nums = [int(s) for s in line.split()] #If you want to do something other than number pairs, remove the int() and leave just s
 
-	#
-	if (adjList[nums[0]] == 0):
-		adjList[nums[0]] = (nums[0], [nums[1]])
+	#Using the first number as a key corresponding to a list of adjacent nodes, add the second number to that list
+	if nums[0] not in adjList:
+		adjList[nums[0]] = [nums[1]]
 	else:
-		adjList[nums[0]][1].append(nums[1])
+		adjList[nums[0]].append(nums[1])
 		
-	if (adjList[nums[1]] == 0):
-		adjList[nums[1]] = (nums[1], [])
+	#If the second num not in the adjList, make a key/value pair for it with an empty list
+	if nums[1] not in adjList:
+		adjList[nums[1]] = []
 f.close()
 
 #Output file here
