@@ -4,6 +4,7 @@ Created on Sun Aug 28 18:00:41 2016
 
 @author: nightduck
 """
+#Converts an unweighted .graph file to a .gml file
 
 # adjList = [num : [num,num,...]), num : [num, num,...]),...]
 # For node pairs that are of a form other than numbers, edit line 20
